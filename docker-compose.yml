@@ -92,18 +92,18 @@ services:
   #     - jaeger
   #     - kafka-0
 
-  ugc_fastapi:
-    build:
-      context: ./ugc_fastapi
-      dockerfile: Dockerfile
-    container_name: ugc_fastapi
-    env_file:
-      - ./.env
-    ports:
-      - "8060:8060"
-    restart: unless-stopped
-    depends_on:
-      - ugc_mongo_db
+  # ugc_fastapi:
+  #   build:
+  #     context: ./ugc_fastapi
+  #     dockerfile: Dockerfile
+  #   container_name: ugc_fastapi
+  #   env_file:
+  #     - ./.env
+  #   ports:
+  #     - "8060:8060"
+  #   restart: unless-stopped
+  #   depends_on:
+  #     - ugc_mongo_db
 
 
   # redis:
@@ -158,15 +158,41 @@ services:
   #     - postgres_data:/var/lib/postgresql/data
   #     - ./postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
 
-  ugc_mongo_db:
+  # ugc_mongo_db:
+  #     image: mongo
+  #     env_file:
+  #       - .env
+  #     restart: always
+  #     volumes:
+  #       ./ugs_fastapi/mongo:/docker-entrypoint-initdb.d
+  #     ports:
+  #       - "27017:27017"
+
+  notifications_mongo_db:
       image: mongo
       env_file:
         - .env
       restart: always
       volumes:
-        - ./mongo:/docker-entrypoint-initdb.d
+        - ./notifications_service/mongo:/docker-entrypoint-initdb.d
       ports:
         - "27017:27017"
+
+
+  notifications_service:
+    build:
+      context: ./notifications_service
+      dockerfile: Dockerfile
+    container_name: notifications_service
+    env_file:
+      - ./.env
+    ports:
+      - "8090:8090"
+    restart: unless-stopped
+    depends_on:
+      - notifications_mongo_db
+
+
 
 #   zookeeper:
 #     image: zookeeper:3.8

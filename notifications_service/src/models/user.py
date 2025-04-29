@@ -1,7 +1,7 @@
-from src.models.dto import AbstractDTO
+from src.models.mixins import UUIDMixin
 
 
-class User(AbstractDTO):
+class User(UUIDMixin):
     user_id: str
     first_name: str
     last_name: str | None

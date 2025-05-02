@@ -3,6 +3,7 @@ from typing import Any
 from src.shemas.delivery import DeliveryDTO # noqa
 from src.crud.base import BaseMongoCRUD
 from models.notifications import NotificationHistory
+from src.shemas.delivery import DeliveryDTO # noqa
 
 
 @dataclass
@@ -10,10 +11,19 @@ class NotificationsService:
     producer: Any
     notification_history: BaseMongoCRUD = BaseMongoCRUD(NotificationHistory)
 
-    async def get_history(self, user_id: str) -> list[dict]:
+    async def get_history(self, filter_: dict, page_number: str, page_size: str) -> list[dict]:
         history_records = await self.notification_history.find(
-            filter_={'user_id': user_id},
-            page_number=0,
-            page_size=100
+            filter_=filter_,
+            page_number=page_number,
+            page_size=page_size
         )
-        return [NotificationHistory.model_validate(record) for record in history_records]
+        return history_records
+
+    async def notification(self, delivery_data: DeliveryDTO) -> None:
+        pass
+
+
+def get_notifications_service() -> NotificationsService:
+    return NotificationsService(
+        producer=...,
+    )

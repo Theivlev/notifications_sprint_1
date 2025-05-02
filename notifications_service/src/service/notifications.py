@@ -8,7 +8,7 @@ from models.notifications import NotificationHistory
 @dataclass
 class NotificationsService:
     producer: Any
-    notification_history: BaseMongoCRUD = BaseMongoCRUD[NotificationHistory]
+    notification_history: BaseMongoCRUD = BaseMongoCRUD(NotificationHistory)
 
     async def get_history(self, user_id: str) -> list[dict]:
         history_records = await self.notification_history.find(

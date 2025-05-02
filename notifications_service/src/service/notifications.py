@@ -1,6 +1,6 @@
 from dataclasses import dataclass
-from typing import Any, TypeVar, Type, ClassVar
-from src.shemas.delivery import DeliveryDTO
+from typing import Any
+from src.shemas.delivery import DeliveryDTO # noqa
 from src.crud.base import BaseMongoCRUD
 from models.notifications import NotificationHistory
 

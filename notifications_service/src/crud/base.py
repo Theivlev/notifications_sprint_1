@@ -39,7 +39,7 @@ class BaseMongoCRUD(Generic[ModelType]):
         return await self.model.find(filter_).skip(skip).limit(page_size).to_list()
 
     async def find_one(self, filter_: dict) -> ModelType:
-        """"Поиск одного документа по заданному фильтру"""
+        """ "Поиск одного документа по заданному фильтру"""
         return await self.model.find_one(filter_)
 
     async def update(self, id_: str, data: dict) -> Optional[ModelType]:

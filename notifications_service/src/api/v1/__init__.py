@@ -1,1 +1,1 @@
-from .notification import router as notification_router # noqa
+from .notification import router as notification_router  # noqa

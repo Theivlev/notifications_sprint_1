@@ -41,4 +41,16 @@ class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8", extra="ignore")
 
 
+class RabbitMQSettings(BaseSettings):
+    """Настройки RabbitMQ."""
+
+    host: str
+    user: str
+    password: str
+    port: int
+
+    model_config = SettingsConfigDict(env_file=".env", extra="ignore", env_prefix="RABBITMQ_")
+
+
 project_settings = Settings()
+rabbit_settings = RabbitMQSettings()

@@ -1,11 +1,10 @@
 from datetime import datetime
+from enum import Enum
 from uuid import UUID
 
 from beanie import Document
 from pydantic import Field
 from src.models.mixins import PyObjectId
-
-from enum import Enum
 
 
 class DeliveryMethod(str, Enum):

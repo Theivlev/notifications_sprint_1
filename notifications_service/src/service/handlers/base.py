@@ -1,9 +1,9 @@
 import abc
+from typing import ClassVar, Type, TypeVar
 
-from typing import TypeVar, Type, ClassVar
 from src.shemas.delivery import DeliveryDTO
 
-HandlerT = TypeVar('HandlerT', bound='BaseHandler')
+HandlerT = TypeVar("HandlerT", bound="BaseHandler")
 
 
 class BaseHandler(abc.ABC):
@@ -17,17 +17,17 @@ class BaseHandler(abc.ABC):
     def __init_subclass__(cls, **kwargs) -> None:
         """Автоматически регистрируем подклассы с их notification."""
         super().__init_subclass__(**kwargs)
-        if hasattr(cls, 'notification') and cls.notification:
+        if hasattr(cls, "notification") and cls.notification:
             cls._handlers[cls.notification] = cls
         else:
-            raise ValueError(f'Подкласс {cls.__name__} должен иметь атрибут notification')
+            raise ValueError(f"Подкласс {cls.__name__} должен иметь атрибут notification")
 
     @abc.abstractmethod
-    def create_tasks(self, delivery_data: DeliveryDTO) -> None:
+    async def create_tasks(self, delivery_data: DeliveryDTO) -> None:
         raise NotImplementedError
 
     @classmethod
-    def get_handler(cls, notification: str) -> Type['BaseHandler']:
+    def get_handler(cls, notification: str) -> Type["BaseHandler"]:
         """Получаем обработчик по notification."""
         handler = cls._handlers.get(notification)
         if not handler:

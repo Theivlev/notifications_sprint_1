@@ -1,10 +1,7 @@
 from datetime import datetime, timezone
 from uuid import UUID
-from pydantic import BaseModel, AwareDatetime
-from uuid import UUID
 
 from pydantic import BaseModel, Field, validator
-from src.models.dto import AbstractDTO
 from src.models.notifications import NotificationRecord
 
 

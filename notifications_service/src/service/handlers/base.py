@@ -1,6 +1,7 @@
 import abc
 from typing import ClassVar, Type, TypeVar
 
+from src.models.dto import AbstractDTO
 from src.shemas.delivery import DeliveryDTO
 
 HandlerT = TypeVar("HandlerT", bound="BaseHandler")
@@ -33,3 +34,12 @@ class BaseHandler(abc.ABC):
         if not handler:
             raise ValueError(f"Обработчик для notification_id {notification} не найден")
         return handler
+
+    async def _publish_message(self, message: AbstractDTO, queue_name: str, queue_durable: bool = True) -> None:
+        """
+        Публикует сообщение в очередь RabbitMQ.
+        """
+        try:
+            await self.producer.publish(message=message, queue_name=queue_name, queue_durable=queue_durable)
+        except Exception as e:
+            raise e

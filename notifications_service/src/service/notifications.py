@@ -1,11 +1,11 @@
 from dataclasses import dataclass
 from typing import Any
 
-from src.db.rabbitmq import rabbitmq_producer
 from models.notifications import NotificationRecord
 from src.crud.base import BaseMongoCRUD
+from src.db.rabbitmq import rabbitmq_producer
 from src.service.handlers.base import BaseHandler
-from src.shemas.delivery import DeliveryDTO  # noqa
+from src.shemas.delivery import DeliveryDTO
 
 
 @dataclass

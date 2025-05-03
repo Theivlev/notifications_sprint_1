@@ -11,7 +11,7 @@ class MessagePopularMoviesDTO(AbstractDTO):
     recipient: str
     channel: Literal["email", "push"]
     movies: List[Dict[str, str]]
-    notification_type: str = "popular_movies"
+    notification_queue: str = "popular_movies"
 
     @staticmethod
     def create(user_data: dict, channel: str = 'email') -> "MessagePopularMoviesDTO":
@@ -24,13 +24,13 @@ class MessagePopularMoviesDTO(AbstractDTO):
             body = "У вас новые рекомендации фильмов!"
 
             return MessagePopularMoviesDTO(
-                    id=uuid.uuid4(),
-                    user_id=user_data.get("user_id"),
-                    body=body,
-                    recipient=user_data.get("email"),
-                    channel=channel,
-                    movies=user_data.get("movies", []),
-                    notification_type="popular_movies"
-                )
+                id=uuid.uuid4(),
+                user_id=user_data.get("user_id"),
+                body=body,
+                recipient=user_data.get("email"),
+                channel=channel,
+                movies=user_data.get("movies", []),
+                notification_type="popular_movies"
+            )
         except Exception as e:
             raise ValueError(f"Ошибка при создании MessagePopularMoviesDTO: {str(e)}")

@@ -1,4 +1,3 @@
-from pydantic import BaseModel
 from uuid import UUID
 from typing import Literal, Dict, Any
 from src.models.dto import AbstractDTO
@@ -12,7 +11,7 @@ class MessageGenericDTO(AbstractDTO):
     recipient: str
     channel: Literal["email", "push", "sms"]
     data: Dict[str, Any]
-    notification_type: str = "generic"
+    notification_queue: str = "generic"
 
     @staticmethod
     def create(user_data: dict, channel: str = 'email') -> "MessageGenericDTO":

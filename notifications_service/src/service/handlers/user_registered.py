@@ -10,4 +10,6 @@ class UserRegisteredHandler(BaseHandler):
 
     async def create_tasks(self, delivery_data: DeliveryDTO) -> None:
         user_data: dict = delivery_data.data_store
-        await self._publish_message(MessageRegisteredDTO.create(user_data), self.producer)
+        message = MessageRegisteredDTO.create(user_data)
+
+        await self._publish_message(message, message.notification_queue)

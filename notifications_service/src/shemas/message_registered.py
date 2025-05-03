@@ -11,7 +11,7 @@ class MessageRegisteredDTO(AbstractDTO):
     body: str
     recipient: str
     channel: Literal["email"]
-    notification_type: str = "user_registered"
+    notification_queue: str = "user_registered"
 
     @staticmethod
     def create(user_data: dict) -> "MessageRegisteredDTO":

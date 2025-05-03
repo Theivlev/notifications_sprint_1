@@ -13,4 +13,6 @@ class PopularMoviesHandler(BaseHandler):
         Создает задачи для отправки уведомлений о популярных фильмах в очередь RabbitMQ.
         """
         user_data: dict = delivery_data.data_store
-        await self._publish_message(MessagePopularMoviesDTO.create(user_data), self.producer)
+        message = MessagePopularMoviesDTO.create(user_data)
+
+        await self._publish_message(message, message.notification_queue)

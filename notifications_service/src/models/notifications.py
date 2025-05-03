@@ -6,7 +6,7 @@ from pydantic import Field
 from src.models.mixins import PyObjectId
 
 
-class NotificationHistory(Document):
+class NotificationRecord(Document):
     id: PyObjectId = Field(default_factory=PyObjectId, alias="_id")
     user_id: UUID
     body: str
@@ -15,4 +15,4 @@ class NotificationHistory(Document):
     expiration_time: datetime
 
     class Settings:
-        name = "notification_history"
+        name = "notification_record"

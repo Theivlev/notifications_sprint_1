@@ -15,7 +15,7 @@ try {
 
 db.createCollection("movie_view_stats");
 db.createCollection("users");
-db.createCollection("notification_history");
+db.createCollection("notification_record");
 
 try {
     db.movie_view_stats.createIndex({ title: 1 }, { unique: true });
@@ -33,7 +33,7 @@ try {
 
 try {
     db.notification_history.createIndex({ id: 1 }, { unique: true });
-    log("INFO", "Уникальный индекс для коллекции 'notification_history' успешно создан");
+    log("INFO", "Уникальный индекс для коллекции 'notification_record' успешно создан");
 } catch (error) {
-    log("ERROR", `Ошибка при создании индекса для коллекции 'notification_history': ${error}`);
+    log("ERROR", `Ошибка при создании индекса для коллекции 'notification_record': ${error}`);
 }

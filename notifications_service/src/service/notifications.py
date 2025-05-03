@@ -2,14 +2,14 @@ from dataclasses import dataclass
 from typing import Any
 from src.shemas.delivery import DeliveryDTO # noqa
 from src.crud.base import BaseMongoCRUD
-from models.notifications import NotificationHistory
+from models.notifications import NotificationRecord
 from src.shemas.delivery import DeliveryDTO # noqa
 
 
 @dataclass
 class NotificationsService:
     producer: Any
-    notification_history: BaseMongoCRUD = BaseMongoCRUD(NotificationHistory)
+    notification_history: BaseMongoCRUD = BaseMongoCRUD(NotificationRecord)
 
     async def get_history(self, filter_: dict, page_number: str, page_size: str) -> list[dict]:
         history_records = await self.notification_history.find(

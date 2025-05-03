@@ -5,10 +5,10 @@ from uuid import UUID
 
 from pydantic import BaseModel, Field, validator
 from src.models.dto import AbstractDTO
-from src.models.notifications import NotificationHistory
+from src.models.notifications import NotificationRecord
 
 
-class NotificationHistoryResponse(BaseModel):
+class NotificationRecordResponse(BaseModel):
     id: str
     user_id: UUID
     body: str
@@ -23,8 +23,8 @@ class NotificationHistoryResponse(BaseModel):
         return value
 
     @staticmethod
-    def from_history(notification_history: NotificationHistory) -> "NotificationHistoryResponse":
-        return NotificationHistoryResponse(
+    def from_history(notification_history: NotificationRecord) -> "NotificationRecordResponse":
+        return NotificationRecordResponse(
             id=str(notification_history.id),
             user_id=notification_history.user_id,
             body=notification_history.body,

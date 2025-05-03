@@ -4,7 +4,7 @@ from uuid import UUID
 from fastapi import APIRouter, Depends, HTTPException
 from src.service.notifications import get_notifications_service, NotificationsService
 from src.paginations.pagination import PaginationLimits
-from src.shemas.notifications_history import NotificationHistoryResponse
+from src.shemas.notifications_history import NotificationRecordResponse
 router = APIRouter()
 
 
@@ -12,7 +12,7 @@ router = APIRouter()
     "/",
     summary="Получение истории уведомлений",
     description="Возвращает список уведомлений пользователя с учетом пагинации.",
-    response_model=List[NotificationHistoryResponse]
+    response_model=List[NotificationRecordResponse]
 )
 async def get_history(
     user_id: str,
@@ -24,7 +24,7 @@ async def get_history(
         filter_ = {"user_id": uuid_obj}
         page_number, page_size = pagination
         history_records = await service.get_history(filter_, page_number, page_size)
-        return [NotificationHistoryResponse.from_history(record) for record in history_records]
+        return [NotificationRecordResponse.from_history(record) for record in history_records]
 
     except HTTPException as e:
         raise e

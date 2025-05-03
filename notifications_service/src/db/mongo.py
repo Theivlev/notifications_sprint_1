@@ -1,6 +1,6 @@
 from beanie import init_beanie # noqa
 from src.models.movies import MovieViewStats
-from src.models.notifications import NotificationHistory
+from src.models.notifications import NotificationRecord
 from src.models.user import User
 
 
@@ -10,5 +10,5 @@ async def init_db(db):
     """
     await init_beanie(
         database=db,
-        document_models=[MovieViewStats, NotificationHistory, User]
+        document_models=[MovieViewStats, NotificationRecord, User]
     )

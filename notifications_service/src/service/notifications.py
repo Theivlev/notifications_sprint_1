@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 from typing import Any
 
+from src.db.rabbitmq import rabbitmq_producer
 from models.notifications import NotificationRecord
 from src.crud.base import BaseMongoCRUD
 from src.service.handlers.base import BaseHandler
@@ -34,5 +35,5 @@ class NotificationsService:
 
 def get_notifications_service() -> NotificationsService:
     return NotificationsService(
-        producer=...,
+        producer=rabbitmq_producer,
     )

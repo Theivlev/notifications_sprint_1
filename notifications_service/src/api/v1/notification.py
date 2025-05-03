@@ -26,7 +26,7 @@ async def get_history(
         uuid_obj = UUID(user_id)
         filter_ = {
             "user_id": uuid_obj,
-            "status": "SENT"
+            "status": "sent"
         }
         page_number, page_size = pagination
         history_records = await service.get_history(filter_, page_number, page_size)

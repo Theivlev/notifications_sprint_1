@@ -5,6 +5,8 @@ from motor.motor_asyncio import AsyncIOMotorClient
 from src.api.routers import main_router
 from src.core.config import project_settings
 from src.db.mongo import init_db
+from src.utils.scheduler.scheduler import scheduler
+from src.utils.scheduler.task_popular_movies import weekly_messages
 
 from fastapi import FastAPI, Request, status  # noqa
 
@@ -15,10 +17,13 @@ async def lifespan(app: FastAPI):
     app.state.db = app.state.client[project_settings.mongo_db]
 
     await init_db(app.state.db)
+    scheduler.add_job(weekly_messages, trigger="cron", day="last")
+    scheduler.start()
     try:
         yield
     finally:
         await app.state.client.close()
+        scheduler.stop(wait=True)
 
 
 app = FastAPI(

@@ -1,7 +1,8 @@
-from uuid import UUID
-from typing import Literal
-from src.models.dto import AbstractDTO
 import uuid
+from typing import Literal
+from uuid import UUID
+
+from src.models.dto import AbstractDTO
 
 
 class MessageEpisodeReleaseDTO(AbstractDTO):
@@ -15,7 +16,7 @@ class MessageEpisodeReleaseDTO(AbstractDTO):
     notification_queue: str = "episode_release"
 
     @staticmethod
-    def create(user_data: dict, channel: str = 'email') -> "MessageEpisodeReleaseDTO":
+    def create(user_data: dict, channel: str = "email") -> "MessageEpisodeReleaseDTO":
         """
         Создает объект MessageEpisodeReleaseDTO на основе данных.
         """
@@ -31,9 +32,9 @@ class MessageEpisodeReleaseDTO(AbstractDTO):
                 body=body,
                 recipient=user_data.get("email"),
                 channel=channel,
-                series_id=user_data.get('series_id'),
+                series_id=user_data.get("series_id"),
                 episode=user_data["episode"],
-                notification_type="episode_release"
+                notification_type="episode_release",
             )
         except Exception as e:
             raise ValueError(f"Ошибка при создании MessageEpisodeReleaseDTO: {str(e)}")

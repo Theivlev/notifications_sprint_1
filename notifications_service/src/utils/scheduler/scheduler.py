@@ -54,7 +54,7 @@ class Scheduler:
             logger.error(f"Ошибка запуска планировщика: {e}")
             raise
 
-    def stop(self):
+    def stop(self, wait: bool = True):
         if not self.scheduler.running:
             logger.info('Планировщик уже остановлен')
             return

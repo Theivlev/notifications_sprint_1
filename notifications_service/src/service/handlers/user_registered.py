@@ -1,4 +1,3 @@
-import uuid
 from typing import ClassVar
 
 from src.service.handlers.base import BaseHandler

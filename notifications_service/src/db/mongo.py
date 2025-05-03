@@ -1,4 +1,4 @@
-from beanie import init_beanie  # noqa
+from beanie import init_beanie
 from src.models.movies import MovieViewStats
 from src.models.notifications import NotificationRecord
 from src.models.user import User

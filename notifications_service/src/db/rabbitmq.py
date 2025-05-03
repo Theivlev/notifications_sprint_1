@@ -1,6 +1,7 @@
 import aio_pika
 from aio_pika.exceptions import AMQPConnectionError
 from src.core.config import rabbit_settings
+from src.models.dto import AbstractDTO
 from src.utils.backoff import backoff
 
 
@@ -32,7 +33,7 @@ class RabbitMQManager:
         if self.connection:
             await self.connection.close()
 
-    async def publish(self, message: str, queue_name: str, queue_durable: bool = True) -> None:
+    async def publish(self, message: str | AbstractDTO, queue_name: str, queue_durable: bool = True) -> None:
         """Отправка сообщения в очередь."""
         await self.channel.declare_queue(queue_name, durable=queue_durable)
         await self.channel.default_exchange.publish(

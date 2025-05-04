@@ -18,3 +18,10 @@ class CheckTokenResult(BaseModel):
             "is_subscribed": self.is_subscribed,
             "error_message": self.error_message or "",
         }
+
+
+class UserInfo(BaseModel):
+    name: str = ""
+    surname: str = ""
+    patronymic: str = ""
+    email: str

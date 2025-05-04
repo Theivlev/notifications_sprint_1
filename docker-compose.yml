@@ -176,7 +176,7 @@ services:
       volumes:
         - ./notifications_service/mongo:/docker-entrypoint-initdb.d
       ports:
-        - "27017:27017"
+        - "27018:27017"
 
 
   notifications_service:

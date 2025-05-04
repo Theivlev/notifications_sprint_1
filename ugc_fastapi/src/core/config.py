@@ -32,8 +32,8 @@ class Settings(BaseSettings):
         ]
     )
 
-    mongo_dsn: MongoDsn
-    mongo_db: str
+    mongo_ugc_dsn: MongoDsn
+    mongo_ugc_db: str
 
     auth_grpc_host: str
     auth_grpc_port: int

@@ -72,7 +72,7 @@ class Scheduler:
 
 
 scheduler = Scheduler(
-    mongo_uri="mongodb://localhost:27017",
+    mongo_uri="mongodb://notifications_mongo_db:27017",
     database="scheduler_db",
     collection="jobs",
     timezone="Europe/Moscow",

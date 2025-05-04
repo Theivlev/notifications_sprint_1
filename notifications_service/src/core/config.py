@@ -32,8 +32,8 @@ class Settings(BaseSettings):
         ]
     )
 
-    mongo_dsn: MongoDsn
-    mongo_db: str
+    mongo_notify_dsn: MongoDsn = Field(..., env='MONGO_NOTIFY_DSN')
+    mongo_notify_db: str = Field(..., env='MONGO_NOTIFY_DB')
 
     auth_grpc_host: str
     auth_grpc_port: int

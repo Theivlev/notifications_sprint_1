@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from typing import Any
 
-from models.notifications import NotificationRecord
+from src.models.notifications import NotificationRecord
 from src.crud.base import BaseMongoCRUD
 from src.db.rabbitmq import rabbitmq_producer
 from src.service.handlers.base import BaseHandler

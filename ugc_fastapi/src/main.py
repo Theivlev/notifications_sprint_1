@@ -11,8 +11,8 @@ from fastapi import FastAPI, Request, status  # noqa
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    app.state.client = AsyncIOMotorClient(str(project_settings.mongo_dsn))
-    app.state.db = app.state.client[project_settings.mongo_db]
+    app.state.client = AsyncIOMotorClient(str(project_settings.mongo_ugc_dsn))
+    app.state.db = app.state.client[project_settings.mongo_ugc_db]
 
     await init_db(app.state.db)
     try:

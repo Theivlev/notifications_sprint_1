@@ -27,7 +27,6 @@ class NotificationsService:
         return history_records
 
     async def notification(self, delivery_data: DeliveryDTO) -> None:
-        logger.info('ХОТИМ СДЕЛАТЬ ЗАПРОС К БД')
         notification_data = await self.notification_records.find_one(
             filter_={"notification": delivery_data.notification}
         )

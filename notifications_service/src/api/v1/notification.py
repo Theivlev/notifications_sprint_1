@@ -23,8 +23,7 @@ async def get_history(
     service: NotificationsService = Depends(get_notifications_service),
 ):
     try:
-        uuid_obj = UUID(user_id)
-        filter_ = {"user_id": uuid_obj, "status": "sent"}
+        filter_ = {"user_id": user_id, "status": "sent"}
         page_number, page_size = pagination
         history_records = await service.get_history(filter_, page_number, page_size)
         return [NotificationRecordResponse.from_history(record) for record in history_records]

@@ -32,7 +32,7 @@ try {
 }
 
 try {
-    db.notification_history.createIndex({ id: 1 }, { unique: true });
+    db.notification_record.createIndex({ id: 1 }, { unique: true });
     log("INFO", "Уникальный индекс для коллекции 'notification_record' успешно создан");
 } catch (error) {
     log("ERROR", `Ошибка при создании индекса для коллекции 'notification_record': ${error}`);

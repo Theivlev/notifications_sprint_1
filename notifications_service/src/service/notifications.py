@@ -8,6 +8,13 @@ from src.service.handlers.base import BaseHandler
 from src.shemas.delivery import DeliveryDTO
 
 
+import logging
+
+
+logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
+logger = logging.getLogger(__name__)
+
+
 @dataclass
 class NotificationsService:
     producer: Any
@@ -20,6 +27,7 @@ class NotificationsService:
         return history_records
 
     async def notification(self, delivery_data: DeliveryDTO) -> None:
+        logger.info('ХОТИМ СДЕЛАТЬ ЗАПРОС К БД')
         notification_data = await self.notification_records.find_one(
             filter_={"notification": delivery_data.notification}
         )

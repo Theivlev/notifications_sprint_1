@@ -34,7 +34,6 @@ app = FastAPI(
     summary=project_settings.project_auth_summary,
     version=project_settings.project_auth_version,
     terms_of_service=project_settings.project_auth_terms_of_service,
-    openapi_tags=project_settings.project_auth_tags,
     lifespan=lifespan,
 )
 

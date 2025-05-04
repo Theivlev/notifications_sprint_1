@@ -15,22 +15,6 @@ class Settings(BaseSettings):
     project_auth_summary: str
     project_auth_version: str
     project_auth_terms_of_service: str
-    project_auth_tags: list = Field(
-        default=[
-            {
-                "name": "bookmarks",
-                "description": "Operations with bookmarks.",
-            },
-            {
-                "name": "likes",
-                "description": "Operations with likes.",
-            },
-            {
-                "name": "reviews",
-                "description": "Operations with reviews.",
-            },
-        ]
-    )
 
     mongo_notify_dsn: MongoDsn = Field(..., env='MONGO_NOTIFY_DSN')
     mongo_notify_db: str = Field(..., env='MONGO_NOTIFY_DB')

@@ -11,6 +11,7 @@ services:
       - theatre-db
       - elasticsearch
       - redis
+
   clickhouse_etl:
     container_name: clickhouse_etl
     build:
@@ -92,7 +93,7 @@ services:
       - theatre-db
       - jaeger
       - kafka-0
-    volumes:
+    volumes:  
       - /tmp/logs/fastapi_auth/:/var/log/fastapi_auth/
 
   grpc_auth:
@@ -187,10 +188,9 @@ services:
         - .env
       restart: always
       volumes:
-        - ./mongo:/docker-entrypoint-initdb.d
+        - ./ugs_fastapi/mongo:/docker-entrypoint-initdb.d
       ports:
         - "27017:27017"
-
   zookeeper:
     image: zookeeper:3.8
     container_name: zookeeper
@@ -385,7 +385,6 @@ services:
     command: logstash -f /config/logstash.conf
     links:
       - elkelasticsearch
-
 
   sentry-api:
     image: sentry:latest

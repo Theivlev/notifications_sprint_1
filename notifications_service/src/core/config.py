@@ -15,25 +15,9 @@ class Settings(BaseSettings):
     project_auth_summary: str
     project_auth_version: str
     project_auth_terms_of_service: str
-    project_auth_tags: list = Field(
-        default=[
-            {
-                "name": "bookmarks",
-                "description": "Operations with bookmarks.",
-            },
-            {
-                "name": "likes",
-                "description": "Operations with likes.",
-            },
-            {
-                "name": "reviews",
-                "description": "Operations with reviews.",
-            },
-        ]
-    )
 
-    mongo_ugc_dsn: MongoDsn
-    mongo_ugc_db: str
+    mongo_notify_dsn: MongoDsn = Field(..., env='MONGO_NOTIFY_DSN')
+    mongo_notify_db: str = Field(..., env='MONGO_NOTIFY_DB')
 
     auth_grpc_host: str
     auth_grpc_port: int
@@ -41,4 +25,16 @@ class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8", extra="ignore")
 
 
+class RabbitMQSettings(BaseSettings):
+    """Настройки RabbitMQ."""
+
+    host: str
+    user: str
+    password: str
+    port: int
+
+    model_config = SettingsConfigDict(env_file=".env", extra="ignore", env_prefix="RABBITMQ_")
+
+
 project_settings = Settings()
+rabbit_settings = RabbitMQSettings()

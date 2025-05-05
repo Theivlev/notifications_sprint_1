@@ -1,7 +1,11 @@
+from uuid import UUID
+
 import grpc
 import src.auth_server.grpc.auth_pb2 as auth_pb2
 import src.auth_server.grpc.auth_pb2_grpc as auth_pb2_grpc
 from src.auth_server.abc.base import BaseAuthService
+from src.auth_server.schemas.models import UserInfo
+from src.services.user_service import get_user_service
 
 
 class GRPCAuthService(auth_pb2_grpc.AuthServiceServicer, BaseAuthService):
@@ -9,6 +13,12 @@ class GRPCAuthService(auth_pb2_grpc.AuthServiceServicer, BaseAuthService):
         token = request.token
         result = self.check_token(token)
         return auth_pb2.CheckTokenResponse(**result.to_proto())
+
+    async def GetUserInfo(self, request, context):
+        user_service = get_user_service()
+        user_model = await user_service.get_model(UUID(request.user_id))
+        user = UserInfo.model_validate(user_model)
+        return auth_pb2.GetUserInfoResponse(**user.model_dump())
 
     async def serve(self):
         server = grpc.aio.server()

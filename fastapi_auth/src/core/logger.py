@@ -1,4 +1,5 @@
 import logging
+import os
 from contextvars import ContextVar
 
 LOGGING_FORMAT = "%(asctime)s [%(levelname)s] %(name)s: %(message)s"
@@ -8,6 +9,8 @@ LOGGING_JSON_FORMAT = (
 LOGGING_DATEFMT = "%d-%m-%Y %H:%M:%S"
 
 request_id_var = ContextVar("request_id", default=None)
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 
 class RequestIdFilter(logging.Filter):
@@ -43,7 +46,7 @@ LOGGING_CONFIG = {
             "level": "DEBUG",
             "formatter": "json",
             "class": "logging.handlers.RotatingFileHandler",
-            "filename": "/var/log/fastapi_auth/app.log",
+            "filename": f"{BASE_DIR}/app.log",
             "filters": ["request_id"],
             "maxBytes": 1024 * 1024 * 5,
             "backupCount": 5,

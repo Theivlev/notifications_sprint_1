@@ -3,8 +3,8 @@ import logging
 import os
 import re
 import uuid
+import subprocess
 
-from alembic import command
 from alembic.config import Config
 from redis import asyncio as aioredis
 from sqlalchemy import UUID, MetaData
@@ -54,7 +54,7 @@ async def create_database(redis_client: aioredis.Redis, max_wait_time: int = 300
             try:
                 alembic_cfg = Config("alembic.ini")
                 alembic_cfg.set_main_option("sqlalchemy.url", postgres_settings.dsn)
-                await asyncio.to_thread(command.upgrade, alembic_cfg, "head")
+                subprocess.run(["alembic", "upgrade", "head"], check=True)
             except Exception as e:
                 logger.error(f"Ошибка при создании таблиц: {e}")
                 raise

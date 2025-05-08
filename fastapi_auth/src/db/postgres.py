@@ -52,10 +52,6 @@ async def create_database(redis_client: aioredis.Redis, max_wait_time: int = 300
             await redis_client.expire(lock_key, lock_timeout)
             await asyncio.sleep(2)
             try:
-                async with engine.begin() as conn:
-                    await conn.run_sync(Base.metadata.create_all)
-                logger.info("Таблицы успешно созданы")
-
                 alembic_cfg = Config("alembic.ini")
                 alembic_cfg.set_main_option("sqlalchemy.url", postgres_settings.dsn)
                 await asyncio.to_thread(command.upgrade, alembic_cfg, "head")

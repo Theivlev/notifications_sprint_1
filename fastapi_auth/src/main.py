@@ -20,18 +20,21 @@ sentry_sdk.init(dsn=sentry_settings.dsn, traces_sample_rate=1.0)
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    redis_cache_manager = RedisCacheManager(redis_settings)
-    redis_client = await RedisClientFactory.create(redis_settings.dsn)
     try:
+        redis_cache_manager = RedisCacheManager(redis_settings)
+        redis_client = await RedisClientFactory.create(redis_settings.dsn)
+    
         await create_database(redis_client)
         await create_first_superuser()
         await redis_cache_manager.setup()
         await rabbitmq_producer.setup()
         yield
+    except Exception as e:
+        import traceback
+        traceback.print_exc()
+        raise
     finally:
         await redis_cache_manager.tear_down()
-        await app.state.grpc_auth_service.stop()
-        app.state.fast_server_task.cancel()
         await rabbitmq_producer.close()
 
 

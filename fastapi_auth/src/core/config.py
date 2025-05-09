@@ -177,6 +177,26 @@ class SentrySettings(BaseSettings):
         self.dsn = f"http://{self.key}@{self.host}:{self.port}/1"
 
 
+class MailQueueSettings(BaseSettings):
+    """Настройки имён exchange, очередей и routing key для email-рассылки."""
+
+    mail_exchange: str = "mail_exchange"
+    retry_exchange: str = "retry_exchange"
+    failed_exchange: str = "failed_exchange"
+
+    mail_queue: str = "mail_queue"
+    retry_queue: str = "mail_retry_queue"
+    failed_queue: str = "failed_queue"
+
+    mail_routing_key: str = "mail"
+    failed_routing_key: str = "failed"
+
+    redirect_url: str
+    url_confirm: str
+
+    model_config = SettingsConfigDict(env_file=".env", extra="ignore", env_prefix="MAIL_")
+
+
 project_settings = ProjectSettings()  # type: ignore
 redis_settings = RedisSettings()  # type: ignore
 postgres_settings = PostgresSettings()  # type: ignore
@@ -186,3 +206,4 @@ vk_settings = VkSettings()  # type: ignore
 jaeger_settings = JaegerSettings()  # type: ignore
 rabbit_settings = RabbitMQSettings()  # type: ignore
 sentry_settings = SentrySettings()  # type: ignore
+mail_queue_settings = MailQueueSettings()  # type: ignore

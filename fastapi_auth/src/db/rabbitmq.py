@@ -32,12 +32,18 @@ class RabbitMQManager:
         if self.connection:
             await self.connection.close()
 
-    async def publish(self, message: str, queue_name: str, queue_durable: bool = True) -> None:
-        """Отправка сообщения в очередь."""
-        await self.channel.declare_queue(queue_name, durable=queue_durable)
-        await self.channel.default_exchange.publish(
+    async def publish(
+        self,
+        message: str,
+        exchange_name: str,
+        routing_key: str,
+        queue_durable: bool = True
+    ) -> None:
+        """Отправка сообщения в указанный exchange с routing key."""
+        exchange = await self.channel.get_exchange(exchange_name)
+        await exchange.publish(
             aio_pika.Message(body=message.encode("utf-8"), delivery_mode=2 if queue_durable else 1),
-            routing_key=queue_name,
+            routing_key=routing_key,
         )
 
 

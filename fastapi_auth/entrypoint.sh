@@ -24,9 +24,6 @@ if dsn:
     print("PostgreSQL is up!")
 END
 
-# echo "Running Alembic migrations..."
-# alembic upgrade head
-
 # Запуск переданного процесса (с переменными окружения)
 echo "Starting main process: $@"
 exec "$@"

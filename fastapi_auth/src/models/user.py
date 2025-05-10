@@ -13,7 +13,7 @@ class User(SQLAlchemyBaseUserTable[UUID], Base):
     )
 
     roles: Mapped[List["Role"]] = relationship(  # noqa: F821
-        secondary="user_role",
+        secondary="auth.user_role",
         primaryjoin="and_(User.id == UserRole.user_id)",
         secondaryjoin="and_(Role.id == UserRole.role_id)",
     )

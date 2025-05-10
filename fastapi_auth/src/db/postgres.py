@@ -19,7 +19,7 @@ logging.basicConfig(
 )
 logger = logging.getLogger("src.db.postgres")
 
-metadata = MetaData()
+metadata = MetaData(schema="auth")
 
 
 class PreBase:

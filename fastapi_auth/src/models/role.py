@@ -26,5 +26,5 @@ class Role(Base):
 class UserRole(Base):
     """Модель связи пользователя и роли."""
 
-    user_id: Mapped[UUID] = mapped_column(sa.ForeignKey("user.id", ondelete="CASCADE"), primary_key=True)
-    role_id: Mapped[UUID] = mapped_column(sa.ForeignKey("role.id", ondelete="CASCADE"), primary_key=True)
+    user_id: Mapped[UUID] = mapped_column(sa.ForeignKey("auth.user.id", ondelete="CASCADE"), primary_key=True)
+    role_id: Mapped[UUID] = mapped_column(sa.ForeignKey("auth.role.id", ondelete="CASCADE"), primary_key=True)

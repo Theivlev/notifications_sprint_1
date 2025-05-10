@@ -44,6 +44,7 @@ def run_migrations_offline() -> None:
     """
     url = config.get_main_option("sqlalchemy.url")
     context.configure(
+        version_table_schema="auth",
         url=url,
         target_metadata=target_metadata,
         literal_binds=True,
@@ -59,6 +60,7 @@ def do_run_migrations(connection):
         connection=connection,
         target_metadata=target_metadata,
         render_as_batch=True,
+        version_table_schema="auth",
     )
 
     with context.begin_transaction():

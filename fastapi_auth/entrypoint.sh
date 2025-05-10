@@ -23,6 +23,23 @@ if dsn:
     asyncio.run(wait_for_db())
     print("PostgreSQL is up!")
 END
+# === ДОБАВЛЯЕМ СОЗДАНИЕ СХЕМЫ AUTH ===
+echo "Ensuring schema 'auth' exists..."
+python << END
+import asyncpg
+import asyncio
+import os
+
+dsn = os.environ.get("POSTGRES_DSN")
+if dsn:
+    async def create_schema():
+        conn = await asyncpg.connect(dsn)
+        await conn.execute('CREATE SCHEMA IF NOT EXISTS auth;')
+        await conn.close()
+        print("Schema 'auth' ensured.")
+
+    asyncio.run(create_schema())
+END
 
 # Запуск переданного процесса (с переменными окружения)
 echo "Starting main process: $@"

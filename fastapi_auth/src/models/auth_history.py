@@ -15,11 +15,11 @@ def create_partition(target, connection: Connection, device_types: List[str] = N
 
     try:
         for device_type in device_types:
-            partition_table_name = f"auth_history_{device_type}"
+            partition_table_name = f"auth.auth_history_{device_type}"
             sql = text(
                 f"""
                 CREATE TABLE IF NOT EXISTS "{partition_table_name}"
-                PARTITION OF "auth_history"
+                PARTITION OF auth."auth_history"
                 FOR VALUES IN ('{device_type}')
                 """
             )
@@ -39,7 +39,7 @@ class AuthHistory(Base):
         },
     )
 
-    user_id: Mapped[UUID] = mapped_column(ForeignKey("user.id", ondelete="CASCADE"), nullable=False)
+    user_id: Mapped[UUID] = mapped_column(ForeignKey("auth.user.id", ondelete="CASCADE"), nullable=False)
     user_agent: Mapped[str] = mapped_column(nullable=False)
     user_device_type: Mapped[str] = mapped_column(nullable=False, primary_key=True)
     timestamp: Mapped[datetime] = mapped_column(default=datetime.now, nullable=False)
